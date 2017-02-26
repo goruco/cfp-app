@@ -80,13 +80,27 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV['MAIL_HOST'] }
   config.action_mailer.default_options = {from: ENV['MAIL_FROM']}
 
+
+  # get Sendgrid credentials from ENV variable
+  sendgrid_host = sendgrid_username = sendgrid_password = ''
+  if !ENV['VCAP_SERVICES'].blank?
+    JSON.parse(ENV['VCAP_SERVICES']).each do |k,v|
+      if !k.scan("sendgrid").blank?
+        credentials = v.first.select {|k1,v1| k1 == "credentials"}["credentials"]
+        sendgrid_host = credentials["hostname"]
+        sendgrid_username = credentials["username"]
+        sendgrid_password = credentials["password"]
+      end
+    end
+  end
+
   config.action_mailer.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
+    :address        => sendgrid_host,
     :port           => '587',
     :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com',
+    :user_name      => sendgrid_username,
+    :password       => sendgrid_password,
+    :domain         => 'goruco.com',
     :enable_starttls_auto => true
   }
 
