@@ -156,7 +156,7 @@ end
 #  review_tags                 :text
 #  guidelines                  :text
 #  policies                    :text
-#  speaker_notification_emails :hstore           default({"accept"=>"", "reject"=>"", "waitlist"=>""})
+#  speaker_notification_emails :hstore
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #  archived                    :boolean          default(FALSE)

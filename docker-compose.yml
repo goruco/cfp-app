@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres_db:
+    image: postgres:10.1
+    ports:
+      - 5432
+    environment:
+      POSTGRES_USER: goruco
+      POSTGRES_PASSWORD: secrets
+      POSTGRES_DB: cfp_app_development
+  web:
+    image: austenito/cfp-app:latest
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    links:
+      - postgres_db
+    command: rails server -p 3000 -b '0.0.0.0'

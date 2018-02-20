@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
-ruby '~> 2.3.0'
+ruby '~> 2.4.0'
 
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.8'
 gem 'puma', '~> 2.13'
 
-gem 'pg'
+gem 'pg', '~> 0.18'
 
+gem 'json', '>= 1.8.6'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails', github: "rweng/jquery-datatables-rails"
@@ -37,6 +38,10 @@ group :production do
 end
 
 group :development do
+  gem 'dotenv-rails'
+  gem 'growl'
+  gem 'guard-livereload', '~> 2.1.1'
+  gem 'spring'
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -47,23 +52,20 @@ group :development do
   gem 'quiet_assets'
   gem 'rack-mini-profiler'
   gem 'haml-rails'
-  gem "spring-commands-rspec", require: false
 
   gem 'web-console', '~> 2.0'
 end
 
-group :development, :test do
+group :test do 
   gem 'capybara', '>= 2.2'
   gem 'capybara-webkit', '~> 1.6.0' # Requires local installation of QT (`brew install qt`)
   gem 'database_cleaner'
-  gem 'dotenv-rails'
-  gem 'factory_girl_rails'
-  gem 'growl'
   gem 'guard'
   gem 'guard-rspec'
-  gem 'guard-livereload', '~> 2.1.1'
+  gem 'factory_girl_rails'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'timecop'
-  gem 'spring'
+  gem "spring-commands-rspec", require: false
 end
+
