@@ -5,13 +5,19 @@ default: &default
 
 development:
   <<: *default
+  host: postgres_db
+  username: goruco
+  password: secrets
   database: cfp_app_development
 
 test:
   <<: *default
   database: cfp_app_test
 
-
 production:
-  url:  <%= ENV["DATABASE_URL"] %>
+  <<: *default
+  host:  <%= ENV["DATABASE_URL"] %>
   pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  database: <%= ENV["DATABASE_NAME"] %>
